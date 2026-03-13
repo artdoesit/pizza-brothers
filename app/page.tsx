@@ -11,7 +11,7 @@ import {
   Search 
 } from "lucide-react";
 
-// --- 1. TypeScript Interfaces (Isse Error Fix Hoga) ---
+// --- 1. TypeScript Interfaces (Missing Types added here) ---
 interface GlassCardProps {
   children: React.ReactNode;
   className?: string;
@@ -29,7 +29,7 @@ interface NavbarProps {
   onLocationClick: () => void;
 }
 
-// --- 2. Components with Proper Typing ---
+// --- 2. Components with Explicit Typing ---
 const GlassCard = ({ children, className }: GlassCardProps) => (
   <div className={`backdrop-blur-2xl bg-white/40 border border-white/60 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] ${className}`}>
     {children}
@@ -65,7 +65,7 @@ const MapModal = ({ isOpen, onClose, address, gmapsUrl }: MapModalProps) => {
               className="flex-grow rounded-2xl w-full"
               frameBorder="0"
               scrolling="no"
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`}
+              src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(address)}`}
             ></iframe>
 
             <div className="p-4 text-center">
@@ -152,11 +152,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-900 selection:bg-orange-200 overflow-x-hidden font-sans pt-32">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-200/40 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] bg-yellow-100/50 blur-[100px] rounded-full" />
-      </div>
-
       <Navbar onOrderClick={handleWhatsAppOrder} onLocationClick={() => setShowMapModal(true)} />
 
       {/* Hero Section */}
