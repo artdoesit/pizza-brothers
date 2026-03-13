@@ -11,15 +11,33 @@ import {
   Search 
 } from "lucide-react";
 
+// --- Types for Props ---
+interface GlassCardProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+interface MapModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  address: string;
+  gmapsUrl: string;
+}
+
+interface NavbarProps {
+  onOrderClick: (itemName?: string) => void;
+  onLocationClick: () => void;
+}
+
 // --- Reusable Glass Component ---
-const GlassCard = ({ children, className }) => (
+const GlassCard = ({ children, className = "" }: GlassCardProps) => (
   <div className={`backdrop-blur-2xl bg-white/40 border border-white/60 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] ${className}`}>
     {children}
   </div>
 );
 
 // --- Simple Modal Component for the Map ---
-const MapModal = ({ isOpen, onClose, address, gmapsUrl }) => {
+const MapModal = ({ isOpen, onClose, address, gmapsUrl }: MapModalProps) => {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -48,8 +66,9 @@ const MapModal = ({ isOpen, onClose, address, gmapsUrl }) => {
               className="flex-grow rounded-2xl w-full"
               frameBorder="0"
               scrolling="no"
-              marginHeight="0"
-              marginWidth="0"
+              marginHeight={0}
+              marginWidth={0}
+              title="Google Map"
               src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`}
             ></iframe>
 
@@ -71,7 +90,7 @@ const MapModal = ({ isOpen, onClose, address, gmapsUrl }) => {
   );
 };
 
-const Navbar = ({ onOrderClick, onLocationClick }) => {
+const Navbar = ({ onOrderClick, onLocationClick }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -118,7 +137,7 @@ export default function Home() {
 
   const whatsappNumber = "919876543210"; 
   const pizzaBrothersAddress = "Pizza Brothers, Minal Residency, Sector E Phase 6, Bhopal, MP";
-  const pizzaBrothersGmapsUrl = "https://maps.google.com"; 
+  const pizzaBrothersGmapsUrl = "https://goo.gl/maps/example"; 
 
   const handleWhatsAppOrder = (itemName = "") => {
     const message = itemName 
@@ -211,8 +230,8 @@ export default function Home() {
             </GlassCard>
           </div>
           <div className="grid grid-cols-2 gap-4 h-[400px]">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white" />
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white mt-8" />
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" alt="About 1" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white" />
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" alt="About 2" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white mt-8" />
           </div>
         </div>
       </section>
