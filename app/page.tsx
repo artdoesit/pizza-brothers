@@ -11,7 +11,7 @@ import {
   Search 
 } from "lucide-react";
 
-// --- Types for Props ---
+// --- TypeScript Interfaces for Props ---
 interface GlassCardProps {
   children: React.ReactNode;
   className?: string;
@@ -29,14 +29,13 @@ interface NavbarProps {
   onLocationClick: () => void;
 }
 
-// --- Reusable Glass Component ---
-const GlassCard = ({ children, className = "" }: GlassCardProps) => (
+// --- Components with Type Definitions ---
+const GlassCard = ({ children, className }: GlassCardProps) => (
   <div className={`backdrop-blur-2xl bg-white/40 border border-white/60 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] ${className}`}>
     {children}
   </div>
 );
 
-// --- Simple Modal Component for the Map ---
 const MapModal = ({ isOpen, onClose, address, gmapsUrl }: MapModalProps) => {
   return (
     <AnimatePresence>
@@ -66,9 +65,6 @@ const MapModal = ({ isOpen, onClose, address, gmapsUrl }: MapModalProps) => {
               className="flex-grow rounded-2xl w-full"
               frameBorder="0"
               scrolling="no"
-              marginHeight={0}
-              marginWidth={0}
-              title="Google Map"
               src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`}
             ></iframe>
 
@@ -137,7 +133,7 @@ export default function Home() {
 
   const whatsappNumber = "919876543210"; 
   const pizzaBrothersAddress = "Pizza Brothers, Minal Residency, Sector E Phase 6, Bhopal, MP";
-  const pizzaBrothersGmapsUrl = "https://goo.gl/maps/example"; 
+  const pizzaBrothersGmapsUrl = "https://maps.google.com/3"; 
 
   const handleWhatsAppOrder = (itemName = "") => {
     const message = itemName 
@@ -156,8 +152,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-900 selection:bg-orange-200 overflow-x-hidden font-sans">
-      
-      {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-200/40 blur-[120px] rounded-full" />
         <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] bg-yellow-100/50 blur-[100px] rounded-full" />
@@ -165,7 +159,7 @@ export default function Home() {
 
       <Navbar onOrderClick={handleWhatsAppOrder} onLocationClick={() => setShowMapModal(true)} />
 
-      {/* 1. HERO SECTION */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-32 pb-10 z-10">
         <div className="max-w-4xl w-full px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
@@ -191,7 +185,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. MENU SECTION */}
+      {/* Menu Section */}
       <section id="menu" className="py-32 px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20 text-5xl font-black italic uppercase tracking-tighter">
@@ -218,7 +212,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. ABOUT & MAPS GALLERY */}
+      {/* About Section */}
       <section id="about" className="py-32 px-6 bg-white/40 relative z-10">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -230,13 +224,13 @@ export default function Home() {
             </GlassCard>
           </div>
           <div className="grid grid-cols-2 gap-4 h-[400px]">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" alt="About 1" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white" />
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" alt="About 2" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white mt-8" />
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white" alt="Pizza" />
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white mt-8" alt="Burger" />
           </div>
         </div>
       </section>
 
-      {/* 4. LOCATION SECTION */}
+      {/* Location Section */}
       <section id="location" className="py-32 px-6 relative z-10">
         <GlassCard className="max-w-6xl mx-auto overflow-hidden border-none group relative">
           <div onClick={() => setShowMapModal(true)} className="absolute inset-0 z-10 cursor-pointer group-hover:bg-black/20 transition-all flex items-center justify-center">
@@ -261,7 +255,6 @@ export default function Home() {
         <p className="text-6xl text-zinc-200 tracking-[1.5rem]">Artdoesit</p>
       </footer>
 
-      {/* AURA AI */}
       <div className="fixed bottom-8 left-8 z-[100] flex items-end gap-4 cursor-pointer" onMouseEnter={() => setShowAuraMessage(true)} onMouseLeave={() => setShowAuraMessage(false)}>
         <motion.div animate={{ y: [0, -5, 0] }} className="w-14 h-14 bg-zinc-900 rounded-full flex items-center justify-center border border-zinc-700 shadow-2xl">
           <Sparkles className="text-orange-400" size={24} />
