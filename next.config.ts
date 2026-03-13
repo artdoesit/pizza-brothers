@@ -2,10 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   typescript: {
-    // TypeScript errors ke bawajud build hone dega taaki deployment na ruke
+    // TypeScript errors ke bawajud build hone dega
     ignoreBuildErrors: true,
   },
-  // @ts-ignore - Kuch versions mein NextConfig type definition issue karta hai
+  // @ts-ignore
   eslint: {
     // ESLint errors ko build ke waqt ignore karein
     ignoreDuringBuilds: true,
