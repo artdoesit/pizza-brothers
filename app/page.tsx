@@ -29,13 +29,14 @@ interface NavbarProps {
   onLocationClick: () => void;
 }
 
-// --- Components with Type Definitions ---
+// --- Reusable Glass Component ---
 const GlassCard = ({ children, className }: GlassCardProps) => (
   <div className={`backdrop-blur-2xl bg-white/40 border border-white/60 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] ${className}`}>
     {children}
   </div>
 );
 
+// --- Simple Modal Component for the Map ---
 const MapModal = ({ isOpen, onClose, address, gmapsUrl }: MapModalProps) => {
   return (
     <AnimatePresence>
@@ -62,10 +63,8 @@ const MapModal = ({ isOpen, onClose, address, gmapsUrl }: MapModalProps) => {
             </button>
             
             <iframe
-              className="flex-grow rounded-2xl w-full"
-              frameBorder="0"
-              scrolling="no"
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`}
+              className="flex-grow rounded-2xl w-full border-0"
+              src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(address)}`}
             ></iframe>
 
             <div className="p-4 text-center">
@@ -133,7 +132,7 @@ export default function Home() {
 
   const whatsappNumber = "919876543210"; 
   const pizzaBrothersAddress = "Pizza Brothers, Minal Residency, Sector E Phase 6, Bhopal, MP";
-  const pizzaBrothersGmapsUrl = "https://maps.google.com/3"; 
+  const pizzaBrothersGmapsUrl = "https://goo.gl/maps/example"; 
 
   const handleWhatsAppOrder = (itemName = "") => {
     const message = itemName 
@@ -152,6 +151,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-900 selection:bg-orange-200 overflow-x-hidden font-sans">
+      
+      {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-200/40 blur-[120px] rounded-full" />
         <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] bg-yellow-100/50 blur-[100px] rounded-full" />
@@ -174,7 +175,8 @@ export default function Home() {
               className="relative w-72 h-72 md:w-[420px] md:h-[420px] mx-auto mb-12 drop-shadow-[0_35px_55px_rgba(234,88,12,0.3)]"
             >
               <div className="w-full h-full bg-white rounded-full flex items-center justify-center border-[12px] border-white shadow-xl overflow-hidden relative">
-                <img src="/hero-pizza.png" alt="Hero Pizza" className="w-full h-full object-cover" />
+                {/* Image Path Fixed to /public folder */}
+                <img src="/Gemini_Generated_Image_jbjexcjbjexcjbje.png" alt="Hero Pizza" className="w-full h-full object-cover" />
               </div>
             </motion.div>
 
@@ -200,6 +202,7 @@ export default function Home() {
             ].map((item, i) => (
               <GlassCard key={i} className="p-10 text-center group hover:bg-white/60 transition-all flex flex-col items-center">
                 <div className="w-44 h-44 rounded-[2rem] border-4 border-white shadow-lg mb-8 overflow-hidden relative flex items-center justify-center">
+                  {/* Public image paths check */}
                   <img src={item.img} alt={item.name} className="absolute inset-0 w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <h3 className="text-2xl font-black uppercase italic mb-2">{item.name}</h3>
@@ -212,7 +215,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About & Maps Gallery */}
       <section id="about" className="py-32 px-6 bg-white/40 relative z-10">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -224,6 +227,7 @@ export default function Home() {
             </GlassCard>
           </div>
           <div className="grid grid-cols-2 gap-4 h-[400px]">
+             {/* Using actual customer photos placeholder */}
             <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white" alt="Pizza" />
             <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" className="rounded-3xl object-cover h-full w-full shadow-lg border-4 border-white mt-8" alt="Burger" />
           </div>
@@ -245,16 +249,19 @@ export default function Home() {
               </div>
             </div>
             <div className="min-h-[400px] relative">
+               {/* Public image path */}
               <img src="/Gemini_Generated_Image_dgm4bldgm4bldgm4.jpg" alt="Shop" className="absolute inset-0 w-full h-full object-cover" />
             </div>
           </div>
         </GlassCard>
       </section>
 
+      {/* Footer highlighting company name */}
       <footer className="py-20 text-center border-t border-zinc-200 bg-white/30 relative z-10 font-black italic uppercase">
         <p className="text-6xl text-zinc-200 tracking-[1.5rem]">Artdoesit</p>
       </footer>
 
+      {/* AURA AI badge */}
       <div className="fixed bottom-8 left-8 z-[100] flex items-end gap-4 cursor-pointer" onMouseEnter={() => setShowAuraMessage(true)} onMouseLeave={() => setShowAuraMessage(false)}>
         <motion.div animate={{ y: [0, -5, 0] }} className="w-14 h-14 bg-zinc-900 rounded-full flex items-center justify-center border border-zinc-700 shadow-2xl">
           <Sparkles className="text-orange-400" size={24} />
